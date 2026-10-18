@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>A2Z Hub – Movies, Anime, Series &amp; More</title>
+<meta name="description" content="A2Z Hub: discover movies, anime, series and every kind of video content in one place.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#0d0e17;--card:#161826;--line:#262a40;--ink:#f4f5fb;--mute:#9aa0bd;--acc:#e8384f;--ok:#ffc83d}
+*{box-sizing:border-box;margin:0}
+html,body{background:var(--bg);color:var(--ink);font-family:Inter,system-ui,sans-serif;min-height:100%}
+button{font:inherit;color:inherit;cursor:pointer;border:0;background:none}
+:focus-visible{outline:3px solid var(--acc);outline-offset:2px}
+.wrap{max-width:1100px;margin:0 auto;padding:0 16px 60px}
+.hd{position:sticky;top:0;z-index:5;background:var(--bg);border-bottom:1px solid var(--line);padding:14px 0 0;margin:0 -16px;padding-left:16px;padding-right:16px}
+.logo{font-weight:800;font-size:30px;letter-spacing:-1px}.logo b{color:var(--acc)}
+#tabs{display:flex;gap:6px;overflow-x:auto;padding:12px 0;scrollbar-width:none}
+#tabs::-webkit-scrollbar{display:none}
+.tab{padding:8px 16px;border-radius:99px;color:var(--mute);font-weight:600;white-space:nowrap;border:1px solid transparent}
+.tab.on{background:var(--acc);color:#fff}
+.hero{margin:22px 0 30px;padding:30px 22px;border-radius:24px;border:1px solid #4a2230;background:linear-gradient(135deg,#561f2e,#14152a 70%)}
+.hero small{color:#ff6b7d;font-weight:800;letter-spacing:3px;font-size:13px}
+.hero h1{font-size:clamp(38px,9vw,64px);font-weight:800;line-height:1.02;letter-spacing:-2px;margin:14px 0}
+.hero p{color:var(--mute);line-height:1.5;max-width:44ch}
+.sb{display:flex;gap:10px;margin-top:22px}
+input,select{font:inherit;font-size:16px;color:var(--ink)}
+.sb input,.f input[type=text],.f input[type=url],.f input[type=password],.box input{flex:1;width:100%;min-width:0;padding:14px 16px;border-radius:14px;border:1px solid var(--line);background:#0f1120}
+.btn{background:var(--acc);color:#fff;font-weight:700;padding:14px 22px;border-radius:14px}
+.btn.g{background:#0f1120;border:1px solid var(--line)}
+.sh{margin-bottom:16px}.sh h2{font-size:30px;font-weight:800;letter-spacing:-.5px}.sh p{color:var(--mute);margin-top:4px}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:16px}
+.card{display:block;text-decoration:none;color:inherit}
+.p{position:relative;aspect-ratio:2/3;border-radius:18px;overflow:hidden;border:1px solid var(--line);background:linear-gradient(135deg,#2a2f55,#561f2e);display:grid;place-items:center;font-size:34px;transition:transform .15s,border-color .15s}
+.card:hover .p{transform:translateY(-3px);border-color:var(--acc)}
+.p img,.th img{width:100%;height:100%;object-fit:cover;display:block}
+.ig{position:absolute;left:8px;top:8px;background:rgba(0,0,0,.65);font-size:11px;font-weight:700;padding:4px 8px;border-radius:99px}
+.card h3{font-size:16px;font-weight:700;margin-top:10px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.card p{color:var(--mute);font-size:14px;margin-top:2px}
+.empty{grid-column:1/-1;border:2px dashed var(--line);border-radius:18px;padding:40px 20px;text-align:center;color:var(--mute)}
+.back{display:inline-flex;font-weight:700;padding:10px 16px;border-radius:12px;background:var(--card);border:1px solid var(--line);margin:18px 0 22px}
+h2.t{font-size:30px;font-weight:800;letter-spacing:-.5px;margin-bottom:6px}.sub{color:var(--mute);margin-bottom:10px}
+.sec{margin:24px 0 10px;font-weight:700;color:var(--mute);font-size:14px}
+.keys{display:grid;grid-template-columns:repeat(auto-fill,minmax(52px,1fr));gap:8px}
+.key{height:56px;border-radius:12px;background:var(--card);border:1px solid var(--line);font-size:20px;font-weight:700}
+.key:active{background:var(--acc);transform:scale(.92)}
+.ov{position:fixed;inset:0;background:rgba(0,0,0,.75);display:none;place-items:center;padding:16px;z-index:9}
+.ov.on{display:grid}
+.box{background:var(--card);border:1px solid var(--line);border-radius:20px;padding:24px;width:100%;max-width:360px}
+.box h3{font-size:22px;margin-bottom:12px}
+.err{color:#ff7a8a;font-size:14px;min-height:20px;margin-top:8px}
+.panel{background:var(--card);border:1px solid var(--line);border-radius:20px;padding:20px;margin:16px 0 26px}
+.f label{display:block;font-weight:600;font-size:14px;margin:16px 0 6px;color:var(--mute)}
+.seg{display:flex;gap:8px}.seg button{flex:1;padding:12px;border-radius:12px;border:1px solid var(--line);font-weight:700;color:var(--mute)}
+.seg button.on{background:var(--acc);color:#fff;border-color:var(--acc)}
+.f input[type=file]{width:100%;color:var(--mute)}
+.pv{display:flex;gap:14px;align-items:center;margin-top:14px;padding:12px;border-radius:14px;background:#0f1120}
+.th{width:64px;aspect-ratio:2/3;border-radius:8px;flex:none;overflow:hidden;display:grid;place-items:center;background:#2a2f55}
+.row{display:flex;gap:12px;align-items:center;background:var(--card);border:1px solid var(--line);border-radius:14px;padding:10px;margin-bottom:10px}
+.row div.m{flex:1;min-width:0}.row b{display:block;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.row span{color:var(--mute);font-size:13px}
+.del{color:#ff7a8a;font-weight:700;padding:8px 12px;border-radius:10px;border:1px solid var(--line)}
+.note{background:var(--ok);color:#161a3a;padding:10px 14px;border-radius:12px;font-size:14px;margin:12px 0}
+.top{display:flex;justify-content:space-between;align-items:center;gap:10px}
+[hidden]{display:none!important}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<section id="home">
+  <div class="hd">
+    <button class="logo" id="logo" aria-label="A2Z Hub">A2Z<b>Hub</b></button>
+    <div id="tabs"></div>
+  </div>
+  <div class="hero">
+    <small>A2Z DISCOVERY</small>
+    <h1>Your next watch<br>starts here.</h1>
+    <p>Movies, anime, series and more, all in one place. Search karo ya category chuno.</p>
+    <div class="sb"><input id="q" type="search" placeholder="Search for a title..." aria-label="Search"><button class="btn" id="sbtn">Search</button></div>
+  </div>
+  <div class="sh"><h2 id="rt">Latest</h2><p id="rs"></p></div>
+  <div class="grid" id="list"></div>
+</section>
+
+<section id="keypad" hidden>
+  <button class="back" id="kBack">&larr; Back</button>
+  <h2 class="t">A2Z Hub</h2><p class="sub">A se Z, 0 se 9 aur symbols.</p>
+  <div class="sec">Letters</div><div class="keys" id="kA"></div>
+  <div class="sec">Numbers</div><div class="keys" id="kN"></div>
+  <div class="sec">Symbols</div><div class="keys" id="kS"></div>
+</section>
+
+<section id="admin" hidden>
+  <div class="top" style="margin-top:18px"><h2 class="t" style="margin:0">Admin panel</h2><button class="back" id="aOut" style="margin:0">Logout</button></div>
+  <div class="note" id="demo" hidden>Demo mode: Firebase set nahi hai, links sirf is browser me save honge.</div>
+  <div class="panel f">
+    <div class="seg"><button id="m1" class="on">Video link</button><button id="m2">Instagram post + video</button></div>
+    <label for="url">Video link (user is pe redirect hoga)</label>
+    <input type="url" id="url" placeholder="https://youtube.com/watch?v=...">
+    <div id="igBox" hidden>
+      <label for="ig">Instagram post ka link</label>
+      <input type="url" id="ig" placeholder="https://instagram.com/p/...">
+      <div class="note">Instagram se image khud nahi aa sakti (Instagram allow nahi karta). Post ki image gallery se chuno, wo hamesha save rehti hai.</div>
+    </div>
+    <label for="img">Image (poster) <span id="imgReq">(optional, YouTube ki auto aati hai)</span></label>
+    <input type="file" id="img" accept="image/*">
+    <label for="ttl">Title (auto aa jata hai, badal sakte ho)</label>
+    <input type="text" id="ttl" placeholder="Naam">
+    <label for="cat">Category</label>
+    <input type="text" id="cat" list="cl" placeholder="Movie, Anime, Series... ya nayi likho">
+    <datalist id="cl"></datalist>
+    <div class="pv" id="pv" hidden><div class="th" id="pvT"></div><b id="pvN"></b></div>
+    <div class="err" id="aErr"></div>
+    <button class="btn" id="add" style="margin-top:12px">Add</button>
+  </div>
+  <h2 class="t" style="font-size:22px">Saved links</h2><div style="height:12px"></div>
+  <div id="aList"></div>
+</section>
+</div>
+
+<div class="ov" id="ov"><div class="box">
+  <h3>Enter code</h3>
+  <input type="password" id="code" maxlength="7" autocomplete="off" autocapitalize="characters" placeholder="7 letter code">
+  <div class="err" id="cErr"></div>
+  <button class="btn" id="go">Unlock</button> <button class="btn g" id="cx">Cancel</button>
+</div></div>
+
+<script type="module">
+/* ===== SETTINGS ===== */
+const firebaseConfig = {
+  apiKey: "AIzaSyC9CYfB-fhkW2kKZnrbuYCQU5ffpPEl7lA",
+  authDomain: "a2zhub-f6279.firebaseapp.com",
+  projectId: "a2zhub-f6279",
+  storageBucket: "a2zhub-f6279.firebasestorage.app",
+  messagingSenderId: "741436149426",
+  appId: "1:741436149426:web:60f03a91f7822e8f7a43ab"
+};
+const CODE_HASH = "0d1bf25cd1cbda9b8057773038228f444b3de8b1cf3616b52e8d0475c0314fe1";
+/* ==================== */
+
+const $ = id => document.getElementById(id);
+const show = id => ["home","keypad","admin"].forEach(s => $(s).hidden = s !== id);
+const esc = s => String(s).replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+const safeUrl = u => /^https?:\/\//i.test(u) ? u : "#";
+const okUrl = u => /^https?:\/\//i.test(u);
+
+/* ---------- storage ---------- */
+let store, links = [], isAdmin = false;
+const useFb = !!firebaseConfig.apiKey;
+if (useFb) {
+  const base = "https://www.gstatic.com/firebasejs/10.12.2/";
+  const { initializeApp } = await import(base + "firebase-app.js");
+  const fs = await import(base + "firebase-firestore.js");
+  const db = fs.getFirestore(initializeApp(firebaseConfig));
+  const col = fs.collection(db, "links");
+  store = {
+    watch: cb => fs.onSnapshot(fs.query(col, fs.orderBy("ts", "desc")), s => cb(s.docs.map(d => ({ id: d.id, ...d.data() })))),
+    add: o => fs.addDoc(col, { ...o, ts: Date.now() }),
+    del: id => fs.deleteDoc(fs.doc(db, "links", id))
+  };
+} else {
+  const K = "a2z_links";
+  const read = () => { try { return JSON.parse(localStorage.getItem(K)) || []; } catch { return []; } };
+  let cb = () => {};
+  store = {
+    watch: f => { cb = f; f(read()); },
+    add: o => { const a = read(); a.unshift({ id: String(Date.now()), ...o }); localStorage.setItem(K, JSON.stringify(a)); cb(a); },
+    del: id => { const a = read().filter(x => x.id !== id); localStorage.setItem(K, JSON.stringify(a)); cb(a); }
+  };
+}
+
+/* ---------- render ---------- */
+let cat = "All", q = "";
+const thumbHtml = l => l.thumb ? `<img src="${esc(l.thumb)}" alt="" loading="lazy" onerror="this.parentNode.textContent='▶'">` : "▶";
+function render() {
+  const cats = [...new Set(links.map(l => l.cat || "Other"))].sort((a, b) => a.localeCompare(b));
+  if (cat !== "All" && !cats.includes(cat)) cat = "All";
+  $("tabs").innerHTML = ["All", ...cats].map(c => `<button class="tab${c === cat ? " on" : ""}" data-c="${esc(c)}">${esc(c)}</button>`).join("");
+  $("cl").innerHTML = [...new Set(["Movie","Anime","Series","Gaming","Music","Other", ...cats])].map(c => `<option value="${esc(c)}">`).join("");
+  const t = q.trim().toLowerCase();
+  const f = links.filter(l => (cat === "All" || (l.cat || "Other") === cat) &&
+    (!t || (l.title || "").toLowerCase().includes(t) || (l.cat || "").toLowerCase().includes(t)));
+  $("rt").textContent = t ? "Results for “" + q.trim() + "”" : (cat === "All" ? "Latest" : cat);
+  $("rs").textContent = f.length + (f.length === 1 ? " title" : " titles");
+  $("list").innerHTML = f.length ? f.map(l =>
+    `<a class="card" href="${esc(safeUrl(l.url))}" target="_blank" rel="noopener"><div class="p">${thumbHtml(l)}${l.ig ? '<span class="ig">Instagram</span>' : ""}</div><h3>${esc(l.title || l.url)}</h3><p>${esc(l.cat || "Other")}</p></a>`
+  ).join("") : `<div class="empty">${t ? "Kuch nahi mila. Doosra naam try karo." : "Abhi koi title nahi hai. Jaldi hi naye aayenge."}</div>`;
+  $("aList").innerHTML = links.length ? links.map(l =>
+    `<div class="row"><div class="th">${thumbHtml(l)}</div><div class="m"><b>${esc(l.title || l.url)}</b><span>${esc(l.cat || "Other")}${l.ig ? " · Instagram" : ""}</span></div><button class="del" data-id="${esc(l.id)}">Delete</button></div>`
+  ).join("") : `<div class="empty" style="border-radius:14px">Koi link nahi. Upar se pehla add karo.</div>`;
+}
+store.watch(a => { links = a; render(); });
+$("tabs").onclick = e => { const b = e.target.closest(".tab"); if (b) { cat = b.dataset.c; render(); } };
+$("q").oninput = e => { q = e.target.value; render(); };
+$("q").onkeydown = e => { if (e.key === "Enter") $("list").scrollIntoView({ behavior: "smooth" }); };
+$("sbtn").onclick = () => $("list").scrollIntoView({ behavior: "smooth" });
+$("aList").onclick = e => { const b = e.target.closest(".del"); if (b && confirm("Ye link delete kar du?")) store.del(b.dataset.id); };
+
+/* ---------- keypad page ---------- */
+const mk = (el, chars) => chars.forEach(c => { const b = document.createElement("button"); b.className = "key"; b.textContent = c; b.dataset.k = c; el.appendChild(b); });
+mk($("kA"), "ABCDEFGHIJKLMNOPQRSTUVWXYZ".split(""));
+mk($("kN"), "1234567890".split(""));
+mk($("kS"), ["#","@","!","?",".",",",":",";","-","_","+","=","*","/","&","%","$","(",")"]);
+$("logo").onclick = () => { show("keypad"); scrollTo(0, 0); };
+$("kBack").onclick = () => show("home");
+$("keypad").onclick = e => { const k = e.target.closest(".key"); if (k && (k.dataset.k === "#" || k.dataset.k === "@")) openCode(); };
+
+/* ---------- code dialog ---------- */
+const openCode = () => { $("code").value = ""; $("cErr").textContent = ""; $("ov").classList.add("on"); setTimeout(() => $("code").focus(), 50); };
+const closeCode = () => $("ov").classList.remove("on");
+async function sha(s) {
+  const b = await crypto.subtle.digest("SHA-256", new TextEncoder().encode(s));
+  return [...new Uint8Array(b)].map(x => x.toString(16).padStart(2, "0")).join("");
+}
+async function unlock() {
+  const v = $("code").value.trim().toUpperCase();
+  if (v.length !== 7) { $("cErr").textContent = "Code 7 letters ka hai."; return; }
+  if (await sha(v) === CODE_HASH) { isAdmin = true; closeCode(); $("demo").hidden = useFb; show("admin"); scrollTo(0, 0); }
+  else { $("cErr").textContent = "Galat code. Dobara try karo."; $("code").select(); }
+}
+$("go").onclick = unlock; $("cx").onclick = closeCode;
+$("code").onkeydown = e => { if (e.key === "Enter") unlock(); };
+$("aOut").onclick = () => { isAdmin = false; show("home"); };
+
+/* ---------- admin ---------- */
+let mode = "video", meta = { title: "", thumb: "" }, fileData = "", t;
+function setMode(m) {
+  mode = m; $("igBox").hidden = m !== "ig";
+  $("m1").classList.toggle("on", m === "video"); $("m2").classList.toggle("on", m === "ig");
+  $("imgReq").textContent = m === "ig" ? "(zaroori: Instagram post ki image)" : "(optional, YouTube ki auto aati hai)";
+  refreshPv();
+}
+$("m1").onclick = () => setMode("video"); $("m2").onclick = () => setMode("ig");
+function ytId(u) {
+  const m = u.match(/(?:youtu\.be\/|youtube\.com\/(?:watch\?(?:.*&)?v=|shorts\/|embed\/|live\/))([\w-]{11})/);
+  return m ? m[1] : null;
+}
+function refreshPv() {
+  const src = fileData || (mode === "video" ? meta.thumb : "");
+  const name = $("ttl").value;
+  $("pv").hidden = !(src || name);
+  $("pvT").innerHTML = src ? `<img src="${esc(src)}" alt="">` : "▶";
+  $("pvN").textContent = name || "Title likh do";
+}
+async function lookup() {
+  const u = $("url").value.trim();
+  meta = { title: "", thumb: "" };
+  if (!okUrl(u)) { refreshPv(); return; }
+  const id = ytId(u);
+  if (id) meta.thumb = `https://img.youtube.com/vi/${id}/hqdefault.jpg`;
+  try {
+    const d = await (await fetch("https://noembed.com/embed?url=" + encodeURIComponent(u))).json();
+    if (d.title) meta.title = d.title;
+    if (!meta.thumb && d.thumbnail_url) meta.thumb = d.thumbnail_url;
+  } catch {}
+  if ($("url").value.trim() !== u) return;
+  if (meta.title && !$("ttl").dataset.manual) $("ttl").value = meta.title;
+  refreshPv();
+}
+async function shrink(blob) {
+  const b = await createImageBitmap(blob);
+  const s = Math.min(1, 640 / b.width), c = document.createElement("canvas");
+  c.width = Math.round(b.width * s); c.height = Math.round(b.height * s);
+  c.getContext("2d").drawImage(b, 0, 0, c.width, c.height);
+  return c.toDataURL("image/jpeg", 0.78);
+}
+$("url").oninput = () => { clearTimeout(t); $("ttl").dataset.manual = ""; t = setTimeout(lookup, 500); };
+$("ttl").oninput = () => { $("ttl").dataset.manual = "1"; refreshPv(); };
+$("img").onchange = async () => {
+  const f = $("img").files[0]; fileData = "";
+  if (f) { try { fileData = await shrink(f); } catch { $("aErr").textContent = "Image read nahi hui, dusri try karo."; } }
+  refreshPv();
+};
+$("add").onclick = async () => {
+  if (!isAdmin) return;
+  const url = $("url").value.trim(), title = $("ttl").value.trim(), ig = $("ig").value.trim(), cat = $("cat").value.trim() || "Other";
+  const err = m => { $("aErr").textContent = m; };
+  if (!okUrl(url)) return err("Video ka pura link daalo (https:// se shuru).");
+  if (mode === "ig") {
+    if (!okUrl(ig)) return err("Instagram post ka link daalo.");
+    if (!fileData) return err("Instagram post ki image chuno.");
+  }
+  if (!title) return err("Title likh do.");
+  err(""); $("add").disabled = true;
+  let thumb = fileData || (mode === "video" ? meta.thumb : "");
+  if (!fileData && thumb && !ytId(url)) { try { thumb = await shrink(await (await fetch(thumb)).blob()); } catch {} }
+  await store.add({ url, title, thumb, cat, ig: mode === "ig" ? ig : "" });
+  ["url", "ig", "ttl", "cat"].forEach(i => $(i).value = ""); $("ttl").dataset.manual = "";
+  $("img").value = ""; fileData = ""; meta = { title: "", thumb: "" };
+  $("add").disabled = false; refreshPv();
+};
+</script>
+</body>
+</html>
